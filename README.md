@@ -1,4 +1,4 @@
-# apple-music---spotify
+# apple music to spotify playlist converter
 converts apple music playlist to spotify
 
 needed libs - requests
