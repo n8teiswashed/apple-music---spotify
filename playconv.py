@@ -2,7 +2,7 @@ import requests, time, json
 
 bearer = ''
 UIRs = []
-
+#open .txt file, compile song titles into song_names
 fpath = input("please paste the file path to your text file -> ")
 f = open(r"{}".format(fpath), "r")
 lines = f.readlines()
@@ -17,6 +17,7 @@ if choice == '1':
     user_id = input("please enter user ID -> ")
     playlist_name = input("please enter playlist name -> ")
     print('making playlist...')
+    #use spotify api to create playlist
     endpoint_url = f"https://api.spotify.com/v1/users/{user_id}/playlists"
     request_body = json.dumps({
             "name": playlist_name,
@@ -29,6 +30,7 @@ if choice == '1':
         print("playlist created!")
         playlist_id = response.json()['id']
 
+    #iterate through song_names colleting URIs (track IDs)
     for name in song_names:
         try:
             r = name.replace('&', 'and')
@@ -45,6 +47,7 @@ if choice == '1':
         except KeyError or IndexError:
                 print("error finding ", name)
                 continue
+    #add songs to playlist
     endpoint_url2 = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
 
     request_body2 = json.dumps({
